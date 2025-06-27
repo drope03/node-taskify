@@ -1,4 +1,4 @@
-export function buildRoutePath(path) {
+export function BuildRoutePath(path) {
   const routeParametersRegex = /:([a-zA-Z]+)/g;
   const paramsWithParams = path.replaceAll(
     routeParametersRegex,
