@@ -1,1 +1,20 @@
-{}
+{
+  "tasks": [
+    {
+      "id": "f035e1c7-19bb-4fbb-8e9d-de0f9960cb41",
+      "title": "primeira task teste",
+      "description": "primeira task teste",
+      "completed_at": null,
+      "created_at": "2025-06-28T22:45:49.360Z",
+      "updated_at": "2025-06-28T22:45:49.360Z"
+    },
+    {
+      "id": "ae7cc8dc-f4aa-4a83-b476-646a2560a19a",
+      "title": "segunda task teste",
+      "description": "segunda task teste",
+      "completed_at": null,
+      "created_at": "2025-06-28T22:46:01.669Z",
+      "updated_at": "2025-06-28T22:46:01.669Z"
+    }
+  ]
+}

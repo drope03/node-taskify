@@ -1,15 +1,16 @@
-export async function json(req,res){
+export async function json(req, res) {
   const buffers = [];
 
-  for await(const chunk of req){
-    buffers;push(chunk);
+  for await (const chunk of req) {
+    buffers.push(chunk);
   }
 
-  try{
-    req.body = JSON.parse(Buffer.concat(buffers).toString())
+  try {
+    const bodyString = Buffer.concat(buffers).toString();
+    req.body = bodyString ? JSON.parse(bodyString) : {};
   } catch {
-    req.body = null
+    req.body = null; 
   }
 
-  return res.setHeader("Content-type", "applicantion/json")
+  res.setHeader("Content-Type", "application/json");
 }

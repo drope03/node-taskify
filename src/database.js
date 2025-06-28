@@ -4,22 +4,22 @@ const databasePath = new URL("../db.json", import.meta.url);
 export class Database {
   #database = {};
 
-  constructor() {
-    fs.readFile(databasePath, "utf-8")
-      .then((data) => {
-        this.#database = JSON.parse(data);
+   constructor() {
+    fs.readFile(databasePath, 'utf8')
+      .then(data => {
+        this.#database = JSON.parse(data)
       })
       .catch(() => {
-        this.#persist();
-      });
+        this.#persist()
+      })
   }
 
   #persist() {
-    fs.writeFile(databasePath, JSON.stringify(this.#database));
+    fs.writeFile(databasePath, JSON.stringify(this.#database, null, 2)); // identado para melhor leitura
   }
 
   select(table, search) {
-    let data = this.database[table] ?? [];
+    let data = this.#database[table] ?? [];
 
     if (search) {
       data = data.filter((row) => {
@@ -30,6 +30,7 @@ export class Database {
         });
       });
     }
+
     return data;
   }
 
@@ -37,7 +38,7 @@ export class Database {
     if (Array.isArray(this.#database[table])) {
       this.#database[table].push(data);
     } else {
-      this.#database[table] = data;
+      this.#database[table] = [data];
     }
 
     this.#persist();
