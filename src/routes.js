@@ -7,7 +7,7 @@ const database = new Database();
 export const routes = [
   {
     method: "POST",
-    path: BuildRoutePath("/tasks"),
+    path: BuildRoutePath("/task"),
     handler: (req, res) => {
       const { title, description } = req.body;
 
@@ -54,13 +54,98 @@ export const routes = [
     },
   },
   {
-    method: "",
-    path: "",
-    handler: (req, res) => {},
+    method: "PUT",
+    path: BuildRoutePath("/tasks/:id"),
+    handler: (req, res) => {
+      const { id } = req.params;
+      const { title, description } = req.body;
+
+      if (!title && !description) {
+        return res.writeHead(400).end(
+          JSON.stringify({
+            message:
+              "titulo ou descrição são obrigatórios para alterar a task!",
+          })
+        );
+      }
+
+      const [task] = database.select("tasks", { id });
+
+      if (!task) {
+        return res.writeHead(404).end(
+          JSON.stringify({
+            message:
+              "Task inexistente, confirme se o id está correto ou existe.",
+          })
+        );
+      }
+
+      database.update("tasks", id, {
+        title: title ?? task.title,
+        description: description ?? task.description,
+        updated_at: new Date(),
+      });
+
+      return res.writeHead(200).end(
+        JSON.stringify({
+          message: "Task alterada com sucesso!",
+        })
+      );
+    },
   },
   {
-    method: "",
-    path: "",
-    handler: (req, res) => {},
+    method: "DELETE",
+    path: BuildRoutePath("/task/:id"),
+    handler: (req, res) => {
+      const { id } = req.params;
+
+      const [task] = database.select("tasks", { id });
+
+      if (!task) {
+        return res.writeHead(404).end(
+          JSON.stringify({
+            message:
+              "Task inexistente, confirme se o id está correto ou existe.",
+          })
+        );
+      }
+
+      database.delete("tasks", id);
+
+      return res.writeHead(200).end(
+        JSON.stringify({
+          message: "Task deletada com sucesso!",
+        })
+      );
+    },
+  },
+  {
+    method: "PATCH",
+    path: BuildRoutePath("/task/:id/complete"),
+    handler: (req, res) => {
+      const { id } = req.params;
+
+      const [task] = database.select("tasks", { id });
+
+      if (!task) {
+        return res.writeHead(404).end(
+          JSON.stringify({
+            message:
+              "Task inexistente, confirme se o id está correto ou existe.",
+          })
+        );
+      }
+
+      const isTaskCompleted = !task.completed_at;
+      const completedAt = isTaskCompleted ? null : new Date();
+
+      database.update("tasks", id, { completedAt });
+
+      return res.writeHead(200).end(
+        JSON.stringify({
+          message: "Task Realizada!",
+        })
+      );
+    },
   },
 ];
