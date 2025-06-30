@@ -20,6 +20,8 @@ Tecnologias
 
 Como rodar
 
-npm i
-npm run dev
-node streams/import-csv.js
+    npm i
+
+    npm run dev
+
+    node streams/import-csv.js
