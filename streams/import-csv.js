@@ -8,26 +8,24 @@ const csvPath = path.resolve(
   "tasks.csv"
 );
 
-const stream = fs.createReadStream(csvPath);
-
-const csvParse = parse({
-  delimiter: ",",
-  skipEmptyLines: true,
-  fromLine: 2,
-});
-
 async function run() {
-  const lines = stream.pipe(csvParse);
+  const stream = fs.createReadStream(csvPath);
 
-  for await (const line of lines) {
-    const [title, description] = line;
+  const csvParser = parse({
+    columns: true,
+    skipEmptyLines: true,
+    trim: true,
+  });
+
+  const records = stream.pipe(csvParser);
+
+  for await (const record of records) {
+    const { titulo: title, descricao: description } = record;
 
     try {
       const response = await fetch("http://localhost:3333/tasks", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, description }),
       });
 

@@ -1,8 +1,8 @@
-API de Tasks com Node.js
+## API de Tasks com Node.js
 
 Projeto simples para praticar os fundamentos do Node.js, sem frameworks, com foco em Stream.
 
-Funcionalidades
+### Funcionalidades
 
     Criar, listar, atualizar e deletar tasks
 
@@ -10,7 +10,7 @@ Funcionalidades
 
     Importar tasks em massa via arquivo CSV (usando streams)
 
-Tecnologias
+### Tecnologias
 
     Node.js (http, fs, csv-parse)
 
@@ -18,7 +18,7 @@ Tecnologias
 
     Persistência via arquivo db.json
 
-Como rodar
+### Como rodar
 
     npm i
 

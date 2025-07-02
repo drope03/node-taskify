@@ -1,4 +1,4 @@
-titulo teste, descrição
-Estudar Node.js,Focar nos streams e no CSV
-Criar API REST,Sem frameworks, usando apenas http
-Aprender CSV,Transformar linhas em tasks automaticamente
+titulo,descricao
+estudar Node.js,"Focar nos streams e no CSV"
+"criar API REST","sem frameworks, usando apenas http"
+"aprender CSV","transformar linhas em tasks automaticamente"
